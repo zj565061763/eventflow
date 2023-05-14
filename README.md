@@ -7,7 +7,7 @@
 ```kotlin
 coroutineScope.launch {
     fEventFlow<TestEvent>().collect {
-        // receive event
+        // collect event
     }
 }
 
