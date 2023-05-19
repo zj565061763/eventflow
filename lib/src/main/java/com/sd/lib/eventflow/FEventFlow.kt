@@ -15,6 +15,7 @@ object FEventFlow {
 
     var isDebug = false
 
+    @JvmStatic
     fun post(event: Any) {
         synchronized(this@FEventFlow) {
             val clazz = event.javaClass
