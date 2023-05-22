@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sd.demo.eventflow.ui.theme.AppTheme
 import com.sd.lib.eventflow.FEventFlow
+import com.sd.lib.eventflow.FEventObserver
 import com.sd.lib.eventflow.fEventFlow
 import com.sd.lib.eventflow.fEventPost
 import kotlinx.coroutines.MainScope
@@ -32,19 +33,26 @@ class MainActivity : ComponentActivity() {
                 Content()
             }
         }
+
+        _scope.launch {
+            fEventFlow<TestEvent>().collect {
+                logMsg { "onEvent flow $it" }
+            }
+        }
+        _eventObserver.register()
+
+    }
+
+    private val _eventObserver = object : FEventObserver<TestEvent>() {
+        override fun onEvent(event: TestEvent) {
+            logMsg { "onEvent observer $event" }
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _scope.cancel()
-    }
-
-    init {
-        _scope.launch {
-            fEventFlow<TestEvent>().collect {
-                logMsg { "onEvent activity $it" }
-            }
-        }
+        _eventObserver.unregister()
     }
 
     companion object {
