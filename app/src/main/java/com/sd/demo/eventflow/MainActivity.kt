@@ -51,5 +51,5 @@ class MainActivity : AppCompatActivity() {
 }
 
 inline fun logMsg(block: () -> String) {
-    Log.i("FEventFlow-demo", block())
+    Log.i("eventflow-demo", block())
 }
