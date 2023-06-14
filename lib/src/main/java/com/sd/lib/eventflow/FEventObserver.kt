@@ -39,9 +39,9 @@ abstract class FEventObserver<T> {
             FEventFlow.flow(_eventClass).collect {
                 onEvent(it as T)
             }
-        }.let {
-            _registerJob = it
-            it.start()
+        }.let { job ->
+            _registerJob = job
+            job.start()
         }
     }
 
