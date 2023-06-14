@@ -38,7 +38,7 @@ object FEventFlow {
             if (cache != null) return cache as MutableSharedFlow<T>
 
             MutableSharedFlow<T>(
-                replay = 1,
+                extraBufferCapacity = 1,
                 onBufferOverflow = BufferOverflow.DROP_OLDEST,
             ).also {
                 _flowHolder[clazz] = it
