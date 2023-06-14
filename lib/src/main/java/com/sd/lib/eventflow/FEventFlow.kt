@@ -5,6 +5,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -63,6 +64,10 @@ object FEventFlow {
 
 fun fEventPost(event: Any) {
     FEventFlow.post(event)
+}
+
+suspend inline fun <reified T> fEventCollect(collector: FlowCollector<T>) {
+    fEventFlow<T>().collect(collector)
 }
 
 inline fun <reified T> fEventFlow(): Flow<T> {

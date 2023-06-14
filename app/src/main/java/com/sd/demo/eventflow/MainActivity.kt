@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sd.demo.eventflow.databinding.ActivityMainBinding
 import com.sd.lib.eventflow.FEventFlow
 import com.sd.lib.eventflow.FEventObserver
-import com.sd.lib.eventflow.fEventFlow
+import com.sd.lib.eventflow.fEventCollect
 import com.sd.lib.eventflow.fEventPost
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         _scope.launch {
-            fEventFlow<TestEvent>().collect {
-                logMsg { "onEvent flow $it" }
+            fEventCollect<TestEvent> {
+                logMsg { "onEvent collect $it" }
             }
         }
 
