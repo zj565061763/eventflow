@@ -67,11 +67,7 @@ fun fEventPost(event: Any) {
 }
 
 suspend inline fun <reified T> fEventCollect(collector: FlowCollector<T>) {
-    fEventFlow<T>().collect(collector)
-}
-
-inline fun <reified T> fEventFlow(): Flow<T> {
-    return FEventFlow.flow(T::class.java)
+    FEventFlow.flow(T::class.java).collect(collector)
 }
 
 private inline fun logMsg(block: () -> String) {
