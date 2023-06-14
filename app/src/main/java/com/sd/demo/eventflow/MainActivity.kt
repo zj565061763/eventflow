@@ -10,6 +10,7 @@ import com.sd.lib.eventflow.fEventFlow
 import com.sd.lib.eventflow.fEventPost
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,12 @@ class MainActivity : AppCompatActivity() {
                 logMsg { "onEvent flow $it" }
             }
         }
-        _eventObserver.register()
+
+        _scope.launch {
+            delay(5000)
+            logMsg { "register observer" }
+            _eventObserver.register()
+        }
     }
 
     private val _eventObserver = object : FEventObserver<TestEvent>() {
